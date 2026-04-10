@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abdul Hadi — Computer Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #000000;
+    --surface: #0a0a0a;
+    --surface-2: #111111;
+    --surface-3: #181818;
+    --border: rgba(255,255,255,0.07);
+    --border-bright: rgba(255,255,255,0.15);
+    --white: #f5f3ee;
+    --silver: #b0aaa0;
+    --silver-bright: #d4cfc8;
+    --gold: #c9a96e;
+    --gold-dim: rgba(201,169,110,0.15);
+    --red-dim: rgba(160,40,40,0.08);
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Cormorant Garamond', serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 18px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  /* --- NOISE OVERLAY --- */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.6;
+  }
+
+  /* --- CUSTOM CURSOR --- */
+  .cursor-dot {
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s;
+  }
+  .cursor-ring {
+    width: 30px; height: 30px;
+    border: 1px solid rgba(201,169,110,0.4);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.15s ease;
+  }
+
+  /* --- LAYOUT --- */
+  .wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* --- NAV --- */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--silver);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--white); }
+
+  /* --- HERO --- */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 8rem 2rem 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 10vw, 9rem);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--silver);
+  }
+
+  .hero-tagline {
+    font-family: var(--font-body);
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--silver);
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-meta-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+
+  .hero-meta-value {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--silver-bright);
+  }
+
+  .hero-line {
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 1s 1.2s forwards;
+  }
+
+  .hero-line-text {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--silver);
+    writing-mode: vertical-rl;
+  }
+
+  .hero-line-bar {
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+
+  /* --- SECTION TITLE --- */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-num {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.01em;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* --- SECTIONS --- */
+  section {
+    padding: 8rem 0;
+  }
+
+  /* --- BENTO GRID --- */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .bento-card {
+    background: var(--surface);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+  }
+
+  .bento-card:hover { background: var(--surface-2); }
+
+  .bento-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold-dim);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .bento-card:hover::after { opacity: 1; }
+
+  /* Spanning variants */
+  .span-8 { grid-column: span 8; }
+  .span-7 { grid-column: span 7; }
+  .span-6 { grid-column: span 6; }
+  .span-5 { grid-column: span 5; }
+  .span-4 { grid-column: span 4; }
+  .span-3 { grid-column: span 3; }
+  .span-2 { grid-column: span 2; }
+  .span-full { grid-column: 1 / -1; }
+
+  .card-tag {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-tag::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 2vw, 1.7rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--silver);
+  }
+
+  .card-body {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--silver);
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tech-pill {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--border-bright);
+    color: var(--silver);
+    transition: all 0.3s;
+  }
+
+  .tech-pill:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .card-number {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 8vw, 7rem);
+    font-weight: 900;
+    color: var(--surface-3);
+    line-height: 1;
+    position: absolute;
+    bottom: -1rem;
+    right: 1.5rem;
+    letter-spacing: -0.05em;
+    transition: color 0.4s;
+    z-index: 0;
+  }
+
+  .bento-card:hover .card-number { color: rgba(201,169,110,0.06); }
+
+  /* --- FEATURE CARD (Large) --- */
+  .card-feature-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 40px,
+        rgba(255,255,255,0.008) 40px,
+        rgba(255,255,255,0.008) 41px
+      );
+  }
+
+  /* --- ABOUT SECTION --- */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .about-text {
+    padding: 3rem;
+    background: var(--surface);
+  }
+
+  .about-text p {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: var(--silver);
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-text p strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .stat-cell {
+    background: var(--surface-2);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 180px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .stat-cell:hover { background: var(--surface-3); }
+
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .stat-num span { color: var(--gold); }
+
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--silver);
+    margin-top: 0.5rem;
+  }
+
+  /* --- SKILLS --- */
+  .skills-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 1px;
+  }
+
+  .skill-cell {
+    background: var(--surface);
+    padding: 2rem 2.5rem;
+    transition: background 0.3s;
+  }
+
+  .skill-cell:hover { background: var(--surface-2); }
+
+  .skill-area {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .skill-list li {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--silver-bright);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .skill-list li::before {
+    content: '';
+    width: 14px;
+    height: 1px;
+    background: var(--border-bright);
+    flex-shrink: 0;
+  }
+
+  /* --- NEW BIO + PHOTO SECTION --- */
+  .bio-photo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 4rem;
+  }
+
+  .bio-portrait {
+    background: var(--surface-2);
+    position: relative;
+    overflow: hidden;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bio-portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(110%);
+    transition: filter 0.6s ease;
+  }
+
+  .bio-portrait:hover img {
+    filter: grayscale(0%) contrast(100%);
+  }
+
+  .portrait-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-3);
+    color: var(--gold);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-align: center;
+    padding: 2rem;
+    border: 1px dashed var(--gold-dim);
+    z-index: 1;
+  }
+
+  .bio-content {
+    background: var(--surface);
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* --- CONTACT GRID --- */
+  .contact-strip {
+    border-top: 1px solid var(--border);
+    padding-top: 6rem;
+    text-align: center;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    max-width: 900px;
+    margin: 3rem auto 0;
+  }
+
+  .contact-card {
+    background: var(--surface);
+    padding: 3rem 2rem;
+    cursor: pointer;
+    transition: background 0.4s;
+    text-align: center;
+  }
+
+  .contact-card:hover { background: var(--surface-2); }
+
+  .contact-card-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+  }
+
+  .contact-card-value {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--gold);
+    color: var(--black);
+    padding: 0.8rem 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    z-index: 10001;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* --- FOOTER --- */
+  footer {
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+  }
+
+  footer p {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--silver);
+  }
+
+  /* --- ANIMATIONS --- */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* --- MARQUEE --- */
+  .marquee-wrap {
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 0;
+    margin: 0;
+  }
+
+  .marquee-inner {
+    display: flex;
+    gap: 4rem;
+    animation: marquee 30s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+
+  .marquee-item {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--silver);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .marquee-item span {
+    color: var(--gold);
+    font-size: 0.5rem;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* --- PROJECT NUMBER ACCENT --- */
+  .project-index {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-style: italic;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* --- STATUS BADGE --- */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid rgba(160,200,100,0.3);
+    color: rgba(160,200,100,0.8);
+    margin-top: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .status-badge::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    background: rgba(160,200,100,0.8);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .wip-badge {
+    border-color: rgba(201,169,110,0.3);
+    color: rgba(201,169,110,0.8);
+  }
+
+  .wip-badge::before { background: rgba(201,169,110,0.8); }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 900px) {
+    .span-8, .span-7, .span-5, .span-4, .span-3 { grid-column: span 12; }
+    .span-6 { grid-column: span 12; }
+    .about-grid, .bio-photo-grid { grid-template-columns: 1fr; }
+    .skills-row { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero-line { display: none; }
+    .hero-meta { flex-wrap: wrap; gap: 1.5rem; }
+    .bio-portrait { min-height: 400px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="toast" id="copyToast">Copied to Clipboard</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">A<span>.</span>Hadi</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="wrapper">
+  <div class="hero">
+    <p class="hero-eyebrow">Computer Engineering · FAST-NUCES Islamabad</p>
+    <h1 class="hero-name">Abdul<br><em>Hadi</em></h1>
+    <p class="hero-tagline">Hardware-software integration specialist. Building at the intersection of embedded systems, intelligent automation, and competitive robotics.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Institution</span>
+        <span class="hero-meta-value">FAST-NUCES, ISB</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Discipline</span>
+        <span class="hero-meta-value">Computer Engineering</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Focus</span>
+        <span class="hero-meta-value">Embedded · Automation · Robotics</span>
+      </div>
+    </div>
+    <div class="hero-line">
+      <span class="hero-line-text">Scroll to explore</span>
+      <div class="hero-line-bar"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span class="marquee-item">Arduino <span>◆</span></span>
+    <span class="marquee-item">n8n Automation <span>◆</span></span>
+    <span class="marquee-item">Docker <span>◆</span></span>
+    <span class="marquee-item">Embedded Systems <span>◆</span></span>
+    <span class="marquee-item">Combat Robotics <span>◆</span></span>
+    <span class="marquee-item">Web Infrastructure <span>◆</span></span>
+    <span class="marquee-item">RFID Systems <span>◆</span></span>
+    <span class="marquee-item">C++ <span>◆</span></span>
+    <span class="marquee-item">Real-time Databases <span>◆</span></span>
+    <span class="marquee-item">Arduino <span>◆</span></span>
+    <span class="marquee-item">n8n Automation <span>◆</span></span>
+    <span class="marquee-item">Docker <span>◆</span></span>
+    <span class="marquee-item">Embedded Systems <span>◆</span></span>
+    <span class="marquee-item">Combat Robotics <span>◆</span></span>
+    <span class="marquee-item">Web Infrastructure <span>◆</span></span>
+    <span class="marquee-item">RFID Systems <span>◆</span></span>
+    <span class="marquee-item">C++ <span>◆</span></span>
+    <span class="marquee-item">Real-time Databases <span>◆</span></span>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrapper">
+    <div class="section-header reveal">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Selected Work</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="bento-grid reveal">
+
+      <!-- Project 1: AI Automation - Feature Card -->
+      <div class="bento-card span-8" style="min-height: 380px;">
+        <div class="card-feature-bg"></div>
+        <div class="project-index">Project 01</div>
+        <div class="card-tag">AI Automation</div>
+        <h3 class="card-title">Restaurant Reservation<br><em>Intelligence System</em></h3>
+        <p class="card-body">Engineered an end-to-end automated booking platform using n8n workflow orchestration inside Docker containers. The system handles reservation ingestion, real-time database synchronisation, conflict detection, and confirmation dispatch.</p>
+        <div class="card-tech-stack">
+          <span class="tech-pill">n8n</span>
+          <span class="tech-pill">Docker</span>
+          <span class="tech-pill">Workflow Orchestration</span>
+          <span class="tech-pill">Real-time DB Sync</span>
+        </div>
+        <div class="card-number">01</div>
+      </div>
+
+      <!-- Combat Robot - Right column -->
+      <div class="bento-card span-4" style="min-height: 380px;">
+        <div class="project-index">Project 04</div>
+        <div class="card-tag">Competitive Robotics</div>
+        <h3 class="card-title">Robo Wars<br><em>Combat Unit</em></h3>
+        <p class="card-body">Designing a high-torque combat robot for university Robo Wars competitions. Emphasis on drive-train geometry and weapon subsystem kinematics.</p>
+        <div class="card-tech-stack">
+          <span class="tech-pill">Mechanical Design</span>
+          <span class="tech-pill">High-torque Motors</span>
+          <span class="tech-pill">C++</span>
+        </div>
+        <div class="status-badge wip-badge">In Development</div>
+        <div class="card-number">04</div>
+      </div>
+
+      <!-- Project 2a: RFID -->
+      <div class="bento-card span-4" style="min-height: 300px;">
+        <div class="project-index">Project 02.a</div>
+        <div class="card-tag">Embedded Systems</div>
+        <h3 class="card-title">RFID-Secured<br><em>Door Locker</em></h3>
+        <p class="card-body">A hardware access-control system using RFID authentication integrated with an Arduino microcontroller. Implements card validation logic and solenoid actuation.</p>
+        <div class="card-tech-stack">
+          <span class="tech-pill">Arduino</span>
+          <span class="tech-pill">RFID RC522</span>
+          <span class="tech-pill">C++</span>
+        </div>
+        <div class="card-number">02</div>
+      </div>
+
+      <!-- Project 2b: Ultrasonic -->
+      <div class="bento-card span-4" style="min-height: 300px;">
+        <div class="project-index">Project 02.b</div>
+        <div class="card-tag">Embedded Systems</div>
+        <h3 class="card-title">Ultrasonic<br><em>Proximity Sensor</em></h3>
+        <p class="card-body">Precision distance measurement system leveraging HC-SR04 modules with interrupt-driven signal processing.</p>
+        <div class="card-tech-stack">
+          <span class="tech-pill">HC-SR04</span>
+          <span class="tech-pill">Arduino</span>
+          <span class="tech-pill">Interrupt Logic</span>
+        </div>
+        <div class="status-badge">Complete</div>
+        <div class="card-number">02</div>
+      </div>
+
+      <!-- Project 2c: Smart Dustbin -->
+      <div class="bento-card span-4" style="min-height: 300px;">
+        <div class="project-index">Project 02.c</div>
+        <div class="card-tag">Embedded Systems</div>
+        <h3 class="card-title">Automated<br><em>Smart Dustbin</em></h3>
+        <p class="card-body">Contactless waste-bin automation via proximity sensing and servo-controlled lid mechanism.</p>
+        <div class="card-tech-stack">
+          <span class="tech-pill">Servo Motor</span>
+          <span class="tech-pill">IR Sensor</span>
+          <span class="tech-pill">Arduino</span>
+        </div>
+        <div class="status-badge">Complete</div>
+        <div class="card-number">02</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrapper">
+    <div class="section-header reveal">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Background</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>I am a Computer Engineering undergraduate at <strong>FAST-NUCES Islamabad</strong> with a track record of shipping real, working systems across hardware and software domains.</p>
+        <p>My technical foundation was laid through an <strong>ICS background</strong>, where I developed rigorous problem-solving discipline before specialising in the hardware-software intersection.</p>
+        <p>I am actively seeking <strong>international university opportunities and engineering internships</strong> where I can contribute to embedded systems, automation pipelines, or intelligent hardware projects.</p>
+      </div>
+
+      <div class="about-stats">
+        <div class="stat-cell">
+          <div class="stat-num">4<span>+</span></div>
+          <div class="stat-label">Shipped Projects</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num">3<span>×</span></div>
+          <div class="stat-label">Hardware Domains</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num">FAST</div>
+          <div class="stat-label">NUCES Islamabad</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num">1<span>st</span></div>
+          <div class="stat-label">Inst. Deployment</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrapper">
+    <div class="section-header reveal">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Technical Arsenal</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="skills-row reveal">
+      <div class="skill-cell">
+        <div class="skill-area">Hardware</div>
+        <ul class="skill-list">
+          <li>Arduino (AVR)</li>
+          <li>RFID RC522 modules</li>
+          <li>Ultrasonic / IR sensors</li>
+          <li>Servo & motor control</li>
+          <li>Combat robotics design</li>
+        </ul>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-area">Software & Automation</div>
+        <ul class="skill-list">
+          <li>C / C++ (embedded)</li>
+          <li>n8n workflow automation</li>
+          <li>Docker containerisation</li>
+          <li>REST API integration</li>
+          <li>Real-time DB operations</li>
+        </ul>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-area">Infrastructure & Web</div>
+        <ul class="skill-list">
+          <li>Web architecture & DNS</li>
+          <li>Hostinger stack</li>
+          <li>CMS deployment</li>
+          <li>HTML / CSS / JS</li>
+          <li>Performance optimisation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEW: IDENTITY & CONTACT SECTION -->
+<section id="contact">
+  <div class="wrapper">
+    <div class="section-header reveal">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Identity & Reach</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="bio-photo-grid reveal">
+      <div class="bio-portrait">
+  <img src="https://i.postimg.cc/HW67MycL/hadi.jpg" alt="Abdul Hadi" style="display: block !important;">
+</div>
+      <div class="bio-content">
+        <div class="about-text" style="padding: 0; background: transparent;">
+          <p>I focus on building systems that solve practical challenges. Whether it's securing a door with RFID or orchestrating cloud workflows, I prioritize efficiency, reliability, and clean engineering.</p>
+          <p>Currently open to global opportunities in <strong>Computer Engineering</strong> and <strong>IoT development</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-strip reveal">
+      <div class="contact-grid">
+        <div class="contact-card" onclick="copyText('abdulhadi7961@gmail.com')">
+          <span class="contact-card-label">Email</span>
+          <span class="contact-card-value">abdulhadi7961@gmail.com</span>
+        </div>
+        <div class="contact-card" onclick="copyText('+923278326001')">
+          <span class="contact-card-label">Phone</span>
+          <span class="contact-card-value">+92 327 8326001</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Abdul Hadi · Computer Engineering, FAST-NUCES Islamabad</p>
+  <p>Precision Engineered</p>
+</footer>
+
+<script>
+  // Cursor
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    dot.style.left = e.clientX + 'px';
+    dot.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    }, 80);
+  });
+
+  // Hover cursor expand
+  document.querySelectorAll('a, button, .bento-card, .contact-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      ring.style.width = '50px';
+      ring.style.height = '50px';
+      ring.style.borderColor = 'rgba(201,169,110,0.6)';
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.style.width = '30px';
+      ring.style.height = '30px';
+      ring.style.borderColor = 'rgba(201,169,110,0.4)';
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.transitionDelay = (i * 0.05) + 's';
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Copy to Clipboard Utility
+  function copyText(text) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    
+    // Show Toast
+    const toast = document.getElementById('copyToast');
+    toast.textContent = `Copied: ${text}`;
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2500);
+  }
+</script>
+</body>
+</html>
