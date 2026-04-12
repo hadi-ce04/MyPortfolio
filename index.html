@@ -40,7 +40,6 @@
     cursor: crosshair;
   }
 
-  /* --- NOISE OVERLAY --- */
   body::before {
     content: '';
     position: fixed;
@@ -53,7 +52,6 @@
     opacity: 0.6;
   }
 
-  /* --- CUSTOM CURSOR --- */
   .cursor-dot {
     width: 6px; height: 6px;
     background: var(--gold);
@@ -75,14 +73,12 @@
     transition: all 0.15s ease;
   }
 
-  /* --- LAYOUT --- */
   .wrapper {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
   }
 
-  /* --- NAV --- */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -123,7 +119,6 @@
   }
   .nav-links a:hover { color: var(--white); }
 
-  /* --- HERO --- */
   .hero {
     min-height: 100vh;
     display: flex;
@@ -232,7 +227,6 @@
     background: linear-gradient(to bottom, var(--gold), transparent);
   }
 
-  /* --- SECTION TITLE --- */
   .section-header {
     display: flex;
     align-items: center;
@@ -261,12 +255,10 @@
     background: var(--border);
   }
 
-  /* --- SECTIONS --- */
   section {
     padding: 8rem 0;
   }
 
-  /* --- BENTO GRID --- */
   .bento-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -281,6 +273,8 @@
     position: relative;
     overflow: hidden;
     transition: background 0.4s;
+    display: flex;
+    flex-direction: column;
   }
 
   .bento-card:hover { background: var(--surface-2); }
@@ -296,15 +290,9 @@
 
   .bento-card:hover::after { opacity: 1; }
 
-  /* Spanning variants */
   .span-8 { grid-column: span 8; }
-  .span-7 { grid-column: span 7; }
   .span-6 { grid-column: span 6; }
-  .span-5 { grid-column: span 5; }
   .span-4 { grid-column: span 4; }
-  .span-3 { grid-column: span 3; }
-  .span-2 { grid-column: span 2; }
-  .span-full { grid-column: 1 / -1; }
 
   .card-tag {
     font-family: var(--font-mono);
@@ -351,6 +339,7 @@
     line-height: 1.7;
     position: relative;
     z-index: 1;
+    flex-grow: 1;
   }
 
   .card-tech-stack {
@@ -393,7 +382,6 @@
 
   .bento-card:hover .card-number { color: rgba(201,169,110,0.06); }
 
-  /* --- FEATURE CARD (Large) --- */
   .card-feature-bg {
     position: absolute;
     inset: 0;
@@ -407,7 +395,6 @@
       );
   }
 
-  /* --- ABOUT SECTION --- */
   .about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -475,7 +462,6 @@
     margin-top: 0.5rem;
   }
 
-  /* --- SKILLS --- */
   .skills-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -526,7 +512,6 @@
     flex-shrink: 0;
   }
 
-  /* --- NEW BIO + PHOTO SECTION --- */
   .bio-photo-grid {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
@@ -583,7 +568,6 @@
     justify-content: center;
   }
 
-  /* --- CONTACT GRID --- */
   .contact-strip {
     border-top: 1px solid var(--border);
     padding-top: 6rem;
@@ -627,7 +611,6 @@
     letter-spacing: 0.02em;
   }
 
-  /* Toast */
   .toast {
     position: fixed;
     bottom: 2rem;
@@ -644,7 +627,6 @@
 
   .toast.show { transform: translateX(-50%) translateY(0); }
 
-  /* --- FOOTER --- */
   footer {
     padding: 2rem;
     display: flex;
@@ -660,7 +642,6 @@
     color: var(--silver);
   }
 
-  /* --- ANIMATIONS --- */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -682,7 +663,6 @@
     transform: none;
   }
 
-  /* --- MARQUEE --- */
   .marquee-wrap {
     overflow: hidden;
     border-top: 1px solid var(--border);
@@ -720,7 +700,6 @@
     to   { transform: translateX(-50%); }
   }
 
-  /* --- PROJECT NUMBER ACCENT --- */
   .project-index {
     font-family: var(--font-display);
     font-size: 0.7rem;
@@ -732,7 +711,6 @@
     z-index: 1;
   }
 
-  /* --- STATUS BADGE --- */
   .status-badge {
     display: inline-flex;
     align-items: center;
@@ -770,10 +748,8 @@
 
   .wip-badge::before { background: rgba(201,169,110,0.8); }
 
-  /* --- RESPONSIVE --- */
   @media (max-width: 900px) {
-    .span-8, .span-7, .span-5, .span-4, .span-3 { grid-column: span 12; }
-    .span-6 { grid-column: span 12; }
+    .span-8, .span-4, .span-6 { grid-column: span 12; }
     .about-grid, .bio-photo-grid { grid-template-columns: 1fr; }
     .skills-row { grid-template-columns: 1fr; }
     .nav-links { display: none; }
@@ -789,7 +765,6 @@
 <div class="cursor-ring" id="cursorRing"></div>
 <div class="toast" id="copyToast">Copied to Clipboard</div>
 
-<!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">A<span>.</span>Hadi</a>
   <ul class="nav-links">
@@ -800,12 +775,11 @@
   </ul>
 </nav>
 
-<!-- HERO -->
 <div class="wrapper">
   <div class="hero">
     <p class="hero-eyebrow">Computer Engineering · FAST-NUCES Islamabad</p>
     <h1 class="hero-name">Abdul<br><em>Hadi</em></h1>
-    <p class="hero-tagline">Hardware-software integration specialist. Building at the intersection of embedded systems, intelligent automation, and competitive robotics.</p>
+    <p class="hero-tagline">Computer Engineering student specialized in building practical systems through hands-on project experimentation.</p>
     <div class="hero-meta">
       <div class="hero-meta-item">
         <span class="hero-meta-label">Institution</span>
@@ -817,7 +791,7 @@
       </div>
       <div class="hero-meta-item">
         <span class="hero-meta-label">Focus</span>
-        <span class="hero-meta-value">Embedded · Automation · Robotics</span>
+        <span class="hero-meta-value">Embedded Systems</span>
       </div>
     </div>
     <div class="hero-line">
@@ -827,159 +801,136 @@
   </div>
 </div>
 
-<!-- MARQUEE -->
 <div class="marquee-wrap">
   <div class="marquee-inner">
-    <span class="marquee-item">Arduino <span>◆</span></span>
+    <span class="marquee-item">C++ <span>◆</span></span>
+    <span class="marquee-item">Arduino IDE <span>◆</span></span>
+    <span class="marquee-item">Embedded Systems <span>◆</span></span>
+    <span class="marquee-item">Logic Design <span>◆</span></span>
     <span class="marquee-item">n8n Automation <span>◆</span></span>
     <span class="marquee-item">Docker <span>◆</span></span>
-    <span class="marquee-item">Embedded Systems <span>◆</span></span>
-    <span class="marquee-item">Combat Robotics <span>◆</span></span>
-    <span class="marquee-item">Web Infrastructure <span>◆</span></span>
-    <span class="marquee-item">RFID Systems <span>◆</span></span>
+    <span class="marquee-item">MATLAB <span>◆</span></span>
+    <span class="marquee-item">Linear Circuit Analysis <span>◆</span></span>
+    <span class="marquee-item">RoboWars <span>◆</span></span>
     <span class="marquee-item">C++ <span>◆</span></span>
-    <span class="marquee-item">Real-time Databases <span>◆</span></span>
-    <span class="marquee-item">Arduino <span>◆</span></span>
+    <span class="marquee-item">Arduino IDE <span>◆</span></span>
+    <span class="marquee-item">Embedded Systems <span>◆</span></span>
+    <span class="marquee-item">Logic Design <span>◆</span></span>
     <span class="marquee-item">n8n Automation <span>◆</span></span>
     <span class="marquee-item">Docker <span>◆</span></span>
-    <span class="marquee-item">Embedded Systems <span>◆</span></span>
-    <span class="marquee-item">Combat Robotics <span>◆</span></span>
-    <span class="marquee-item">Web Infrastructure <span>◆</span></span>
-    <span class="marquee-item">RFID Systems <span>◆</span></span>
-    <span class="marquee-item">C++ <span>◆</span></span>
-    <span class="marquee-item">Real-time Databases <span>◆</span></span>
+    <span class="marquee-item">MATLAB <span>◆</span></span>
+    <span class="marquee-item">Linear Circuit Analysis <span>◆</span></span>
+    <span class="marquee-item">RoboWars <span>◆</span></span>
   </div>
 </div>
 
-<!-- PROJECTS -->
 <section id="projects">
   <div class="wrapper">
     <div class="section-header reveal">
       <span class="section-num">01</span>
-      <h2 class="section-title">Selected Work</h2>
+      <h2 class="section-title">Projects</h2>
       <div class="section-line"></div>
     </div>
 
     <div class="bento-grid reveal">
-
-      <!-- Project 1: AI Automation - Feature Card -->
-      <div class="bento-card span-8" style="min-height: 380px;">
+      <!-- Row 1 -->
+      <div class="bento-card span-8" style="min-height: 420px;">
         <div class="card-feature-bg"></div>
         <div class="project-index">Project 01</div>
-        <div class="card-tag">AI Automation</div>
-        <h3 class="card-title">Restaurant Reservation<br><em>Intelligence System</em></h3>
-        <p class="card-body">Engineered an end-to-end automated booking platform using n8n workflow orchestration inside Docker containers. The system handles reservation ingestion, real-time database synchronisation, conflict detection, and confirmation dispatch.</p>
+        <div class="card-tag">System Automation</div>
+        <h3 class="card-title">Restaurant Reservation<br><em>Automation System</em></h3>
+        <p class="card-body">Designed and deployed an automated booking system replacing manual workflows. Integrated webhooks with Google Sheets for real-time data handling and managed deployment on a VPS environment using n8n and Docker.</p>
         <div class="card-tech-stack">
           <span class="tech-pill">n8n</span>
           <span class="tech-pill">Docker</span>
-          <span class="tech-pill">Workflow Orchestration</span>
-          <span class="tech-pill">Real-time DB Sync</span>
+          <span class="tech-pill">VPS Management</span>
+          <span class="tech-pill">Webhooks</span>
         </div>
         <div class="card-number">01</div>
       </div>
 
-      <!-- Combat Robot - Right column -->
-      <div class="bento-card span-4" style="min-height: 380px;">
-        <div class="project-index">Project 04</div>
+      <div class="bento-card span-4" style="min-height: 420px;">
+        <div class="project-index">Project 02</div>
         <div class="card-tag">Competitive Robotics</div>
-        <h3 class="card-title">Robo Wars<br><em>Combat Unit</em></h3>
-        <p class="card-body">Designing a high-torque combat robot for university Robo Wars competitions. Emphasis on drive-train geometry and weapon subsystem kinematics.</p>
+        <h3 class="card-title">RoboWars Combat Robot<br><em>NASCON Entry</em></h3>
+        <p class="card-body">Combining mechanical design, electronics, and control systems. Focused on RF communication efficiency and structural stability for high-impact combat performance.</p>
         <div class="card-tech-stack">
+          <span class="tech-pill">RF Control</span>
           <span class="tech-pill">Mechanical Design</span>
-          <span class="tech-pill">High-torque Motors</span>
-          <span class="tech-pill">C++</span>
+          <span class="tech-pill">Electronics</span>
         </div>
-        <div class="status-badge wip-badge">In Development</div>
-        <div class="card-number">04</div>
+        <div class="status-badge wip-badge">In Progress</div>
+        <div class="card-number">02</div>
       </div>
 
-      <!-- Project 2a: RFID -->
-      <div class="bento-card span-4" style="min-height: 300px;">
-        <div class="project-index">Project 02.a</div>
+      <!-- Row 2: Fixed Heights for Better Text Fit -->
+      <div class="bento-card span-6" style="min-height: 380px;">
+        <div class="project-index">Project 03.a</div>
         <div class="card-tag">Embedded Systems</div>
         <h3 class="card-title">RFID-Secured<br><em>Door Locker</em></h3>
-        <p class="card-body">A hardware access-control system using RFID authentication integrated with an Arduino microcontroller. Implements card validation logic and solenoid actuation.</p>
+        <p class="card-body">Built a secure access system with electronic locking and authentication logic. Successfully debugged hardware-software issues caused by wiring instability and power fluctuations during testing.</p>
         <div class="card-tech-stack">
-          <span class="tech-pill">Arduino</span>
-          <span class="tech-pill">RFID RC522</span>
           <span class="tech-pill">C++</span>
+          <span class="tech-pill">Arduino IDE</span>
+          <span class="tech-pill">Hardware Logic</span>
         </div>
-        <div class="card-number">02</div>
+        <div class="card-number">03</div>
       </div>
 
-      <!-- Project 2b: Ultrasonic -->
-      <div class="bento-card span-4" style="min-height: 300px;">
-        <div class="project-index">Project 02.b</div>
+      <div class="bento-card span-6" style="min-height: 380px;">
+        <div class="project-index">Project 03.b</div>
         <div class="card-tag">Embedded Systems</div>
-        <h3 class="card-title">Ultrasonic<br><em>Proximity Sensor</em></h3>
-        <p class="card-body">Precision distance measurement system leveraging HC-SR04 modules with interrupt-driven signal processing.</p>
+        <h3 class="card-title">Smart Automation<br><em>Dustbin</em></h3>
+        <p class="card-body">Designed a touchless dustbin system. Improved overall reliability by tuning sensor thresholds and timing to ensure accurate responses to real-world input conditions.</p>
         <div class="card-tech-stack">
-          <span class="tech-pill">HC-SR04</span>
-          <span class="tech-pill">Arduino</span>
-          <span class="tech-pill">Interrupt Logic</span>
+          <span class="tech-pill">Ultrasonic Sensors</span>
+          <span class="tech-pill">Servo Control</span>
+          <span class="tech-pill">Calibration</span>
         </div>
         <div class="status-badge">Complete</div>
-        <div class="card-number">02</div>
+        <div class="card-number">04</div>
       </div>
-
-      <!-- Project 2c: Smart Dustbin -->
-      <div class="bento-card span-4" style="min-height: 300px;">
-        <div class="project-index">Project 02.c</div>
-        <div class="card-tag">Embedded Systems</div>
-        <h3 class="card-title">Automated<br><em>Smart Dustbin</em></h3>
-        <p class="card-body">Contactless waste-bin automation via proximity sensing and servo-controlled lid mechanism.</p>
-        <div class="card-tech-stack">
-          <span class="tech-pill">Servo Motor</span>
-          <span class="tech-pill">IR Sensor</span>
-          <span class="tech-pill">Arduino</span>
-        </div>
-        <div class="status-badge">Complete</div>
-        <div class="card-number">02</div>
-      </div>
-
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="wrapper">
     <div class="section-header reveal">
       <span class="section-num">02</span>
-      <h2 class="section-title">Background</h2>
+      <h2 class="section-title">Profile</h2>
       <div class="section-line"></div>
     </div>
 
     <div class="about-grid reveal">
       <div class="about-text">
-        <p>I am a Computer Engineering undergraduate at <strong>FAST-NUCES Islamabad</strong> with a track record of shipping real, working systems across hardware and software domains.</p>
-        <p>My technical foundation was laid through an <strong>ICS background</strong>, where I developed rigorous problem-solving discipline before specialising in the hardware-software intersection.</p>
-        <p>I am actively seeking <strong>international university opportunities and engineering internships</strong> where I can contribute to embedded systems, automation pipelines, or intelligent hardware projects.</p>
+        <p>Computer Engineering student at <strong>FAST-NUCES</strong> with a strong interest in building practical systems. My background in <strong>Intermediate Computer Sciences</strong> provided the logical foundation for my shift into hardware-software integration.</p>
+        <p>I thrive in project-driven environments where experimentation leads to improved system performance. My work ranges from low-level <strong>C++ hardware logic</strong> to higher-level <strong>automation workflows</strong>.</p>
+        <p>My goal is to bridge the gap between theoretical engineering and real-world deployment, specifically within the fields of embedded systems and automation.</p>
       </div>
 
       <div class="about-stats">
         <div class="stat-cell">
-          <div class="stat-num">4<span>+</span></div>
-          <div class="stat-label">Shipped Projects</div>
+          <div class="stat-num">C<span>++</span></div>
+          <div class="stat-label">System Logic</div>
         </div>
         <div class="stat-cell">
-          <div class="stat-num">3<span>×</span></div>
-          <div class="stat-label">Hardware Domains</div>
+          <div class="stat-num">A1</div>
+          <div class="stat-label">German Proficiency</div>
         </div>
         <div class="stat-cell">
           <div class="stat-num">FAST</div>
-          <div class="stat-label">NUCES Islamabad</div>
+          <div class="stat-label">BS CE Student</div>
         </div>
         <div class="stat-cell">
-          <div class="stat-num">1<span>st</span></div>
-          <div class="stat-label">Inst. Deployment</div>
+          <div class="stat-num">♟</div>
+          <div class="stat-label">Competitive Chess</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SKILLS -->
 <section id="skills">
   <div class="wrapper">
     <div class="section-header reveal">
@@ -990,40 +941,39 @@
 
     <div class="skills-row reveal">
       <div class="skill-cell">
-        <div class="skill-area">Hardware</div>
+        <div class="skill-area">Languages & Tools</div>
         <ul class="skill-list">
-          <li>Arduino (AVR)</li>
-          <li>RFID RC522 modules</li>
-          <li>Ultrasonic / IR sensors</li>
-          <li>Servo & motor control</li>
-          <li>Combat robotics design</li>
+          <li>C / C++ (Primary)</li>
+          <li>Python</li>
+          <li>MATLAB</li>
+          <li>VS Code</li>
+          <li>Git / GitHub</li>
         </ul>
       </div>
       <div class="skill-cell">
-        <div class="skill-area">Software & Automation</div>
+        <div class="skill-area">Engineering Core</div>
         <ul class="skill-list">
-          <li>C / C++ (embedded)</li>
-          <li>n8n workflow automation</li>
-          <li>Docker containerisation</li>
-          <li>REST API integration</li>
-          <li>Real-time DB operations</li>
+          <li>Linear Circuit Analysis (LCA)</li>
+          <li>Logic Design</li>
+          <li>Embedded Systems</li>
+          <li>System Automation</li>
+          <li>Arduino IDE</li>
         </ul>
       </div>
       <div class="skill-cell">
-        <div class="skill-area">Infrastructure & Web</div>
+        <div class="skill-area">Deployment</div>
         <ul class="skill-list">
-          <li>Web architecture & DNS</li>
-          <li>Hostinger stack</li>
-          <li>CMS deployment</li>
-          <li>HTML / CSS / JS</li>
-          <li>Performance optimisation</li>
+          <li>n8n (Automation)</li>
+          <li>Docker</li>
+          <li>Hostinger VPS</li>
+          <li>Domain Configuration</li>
+          <li>Wordpress</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- NEW: IDENTITY & CONTACT SECTION -->
 <section id="contact">
   <div class="wrapper">
     <div class="section-header reveal">
@@ -1034,12 +984,15 @@
 
     <div class="bio-photo-grid reveal">
       <div class="bio-portrait">
-  <img src="https://i.postimg.cc/HW67MycL/hadi.jpg" alt="Abdul Hadi" style="display: block !important;">
-</div>
+        <img src="https://i.postimg.cc/HW67MycL/hadi.jpg" alt="Abdul Hadi" style="display: block !important;">
+        <div class="portrait-placeholder">
+          
+        </div>
+      </div>
       <div class="bio-content">
         <div class="about-text" style="padding: 0; background: transparent;">
-          <p>I focus on building systems that solve practical challenges. Whether it's securing a door with RFID or orchestrating cloud workflows, I prioritize efficiency, reliability, and clean engineering.</p>
-          <p>Currently open to global opportunities in <strong>Computer Engineering</strong> and <strong>IoT development</strong>.</p>
+          <p>Beyond engineering, I am a <strong>competitive chess player</strong>. Regular play has sharpened my pattern recognition and logical breakdown skills—disciplines I find essential for debugging high-level code and complex circuits.</p>
+          <p>I am also currently undergoing <strong>German A1</strong> studies to better integrate into the international academic landscape.</p>
         </div>
       </div>
     </div>
@@ -1050,23 +1003,21 @@
           <span class="contact-card-label">Email</span>
           <span class="contact-card-value">abdulhadi7961@gmail.com</span>
         </div>
-        <div class="contact-card" onclick="copyText('+923278326001')">
+        <div class="contact-card" onclick="copyText('923278326001')">
           <span class="contact-card-label">Phone</span>
-          <span class="contact-card-value">+92 327 8326001</span>
+          <span class="contact-card-value">+92 327 832 6001</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <p>© 2025 Abdul Hadi · Computer Engineering, FAST-NUCES Islamabad</p>
-  <p>Precision Engineered</p>
+  <p>© 2026 Abdul Hadi · BS Computer Engineering</p>
+  <p>FAST-NUCES Islamabad</p>
 </footer>
 
 <script>
-  // Cursor
   const dot = document.getElementById('cursorDot');
   const ring = document.getElementById('cursorRing');
   document.addEventListener('mousemove', e => {
@@ -1078,7 +1029,6 @@
     }, 80);
   });
 
-  // Hover cursor expand
   document.querySelectorAll('a, button, .bento-card, .contact-card').forEach(el => {
     el.addEventListener('mouseenter', () => {
       ring.style.width = '50px';
@@ -1092,7 +1042,6 @@
     });
   });
 
-  // Scroll reveal
   const observer = new IntersectionObserver(entries => {
     entries.forEach((e, i) => {
       if (e.isIntersecting) {
@@ -1104,7 +1053,6 @@
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Copy to Clipboard Utility
   function copyText(text) {
     const el = document.createElement('textarea');
     el.value = text;
@@ -1113,7 +1061,6 @@
     document.execCommand('copy');
     document.body.removeChild(el);
     
-    // Show Toast
     const toast = document.getElementById('copyToast');
     toast.textContent = `Copied: ${text}`;
     toast.classList.add('show');
